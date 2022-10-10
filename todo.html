@@ -10,20 +10,39 @@
 
 </body>
 <script>
-    const body = document.querySelector('body');
 
-    function addToDo(task) {
+    const body = document.querySelector('body');
+    const tasksWrapper = document.createElement('div');
+
+    const taskArray = [];
+    
+
+    function renderTask(task) {
         const box = document.createElement('div');
         const content = document.createElement('span');
         box.appendChild(content);
-        content.innerHTML = task;
+        content.innerHTML = task.task;
         const button = document.createElement('button');
         button.innerHTML = 'Delete Task';
         box.appendChild(button);
-        button.addEventListener('click', () => {box.remove()});
-        body.appendChild(box);
+        button.addEventListener('click', () => {
+            const idx = taskArray.indexOf(task);
+            taskArray.splice(idx, 1);
+            render();
+        });
+        tasksWrapper.appendChild(box);
     }
 
+    function render() {
+        //clear to do list
+        tasksWrapper.innerHTML = "";
+        taskArray.forEach(taskObj => {
+            renderTask(taskObj);
+        })
+
+    }
+
+    //new task input field:
     const parentDiv = document.createElement('div');
     const textField = document.createElement('textarea');
     const addButton = document.createElement('button');
@@ -35,12 +54,14 @@
     parentDiv.appendChild(addButton);
     addButton.addEventListener('click', () => {
         const newTask = textField.value;
-        addToDo(newTask);
+        taskArray.push({task: newTask});
         textField.value = '';
+        render();
     })
 
 
-    addToDo('I love Peter');
+    body.appendChild(tasksWrapper);
+
 
 </script>
 </html>
