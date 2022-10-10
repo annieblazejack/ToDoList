@@ -1,0 +1,46 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>To Do List</title>
+</head>
+<body>
+
+</body>
+<script>
+    const body = document.querySelector('body');
+
+    function addToDo(task) {
+        const box = document.createElement('div');
+        const content = document.createElement('span');
+        box.appendChild(content);
+        content.innerHTML = task;
+        const button = document.createElement('button');
+        button.innerHTML = 'Delete Task';
+        box.appendChild(button);
+        button.addEventListener('click', () => {box.remove()});
+        body.appendChild(box);
+    }
+
+    const parentDiv = document.createElement('div');
+    const textField = document.createElement('textarea');
+    const addButton = document.createElement('button');
+    addButton.innerHTML = 'Add Task'
+    body.appendChild(parentDiv);
+    parentDiv.style.backgroundColor = 'whitesmoke';
+    parentDiv.style.padding = '4px';
+    parentDiv.appendChild(textField);
+    parentDiv.appendChild(addButton);
+    addButton.addEventListener('click', () => {
+        const newTask = textField.value;
+        addToDo(newTask);
+        textField.value = '';
+    })
+
+
+    addToDo('I love Peter');
+
+</script>
+</html>
